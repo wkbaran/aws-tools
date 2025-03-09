@@ -7,17 +7,9 @@ DESC=$5
 
 # So to get all the Cloudfront IPs for the us-west-* regions, you'd:
 #   for i in $(./get-cloudfront-ips.sh us-west-); do
-#     ./add-sg-rule.sh us-west-2 sg-00d686c7073b0e555 80 $i 
+#     ./add-sg-rule.sh us-west-2 sg-00d686c7073b0e555 80 $i "Cloudfront IPs in us-west-" 
 #   done
 #
-
-#aws ec2 authorize-security-group-ingress \
-#        --group-id "$SG_ID" \
-#        --protocol tcp \
-#        --port "$PORT" \
-#        --cidr "$CIDR" \
-#        --region us-west-2 \
-#        --tag-specifications "ResourceType=security-group-rule,Tags=[{Key=Description,Value=\"$DESC\"}]"
 
 aws ec2 authorize-security-group-ingress --group-id "$SG_ID" --region $REGION --ip-permissions "[
         {
